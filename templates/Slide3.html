@@ -2,23 +2,20 @@
       <div class="help--slides" data-id="3">
         <p>Lorem ipsum dolor sit amet, his ocurreret persequeris ea, ad utinam laudem duo. Verterem adipisci partiendo eos ne, ea his reque quaeque recteque, ne quo lobortis intellegam.</p>
         <ul class="help--slides-items">
-          <li>
-            <div class="col">
-              <div class="title">Lokalna zbiórka 1</div>
-              <div class="subtitle">Lorem ipsum dolor sit amet consectetur.</div>
-            </div>
+        <ul class="help--slides-items">
+            {% for local in locals %}
+                <li>
+                    <div class="col">
+                        <div class="title">{{ local.address }}</div>
+                        <div class="subtitle">{{ local.city }}</div>
+                        <div class="subtitle">{{ local.zip_code}}</div>
+                    </div>
 
-            <div class="col"><div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div></div>
-          </li>
-
-          <li>
-            <div class="col">
-              <div class="title">Lokalna zbiórka 2</div>
-              <div class="subtitle">Lorem ipsum dolor sit amet consectetur.</div>
-            </div>
-
-            <div class="col"><div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div></div>
-          </li>
+                    <div class="col">
+                        <div class="text">{{ local.phone_number }}</div>
+                    </div>
+                </li>
+            {% endfor %}
         </ul>
 
         <!-- Pagination
