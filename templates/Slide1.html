@@ -1,26 +1,35 @@
 <!-- SLIDE 1 -->
 <div class="help--slides active" data-id="1">
-    <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy. Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.</p>
+    <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy. Możesz sprawdzić czym się
+        zajmują, komu pomagają i czego potrzebują.</p>
 
     <ul class="help--slides-items">
-        {% for institution in institutions %}
-        <li>
-            <div class="col">
-                <div class="title">{{ institution.name }}</div>
-                <div class="subtitle">Cel i misja: {{ institution.description }}</div>
-            </div>
+        {% for institution in institution %}
+            <li>
+                <div class="col">
+                    <div class="title">{{ institution.name }}</div>
+                    <div class="subtitle">Cel i misja: {{ institution.description }}</div>
+                </div>
 
-            <div class="col">
-                <div class="text">ubrania, jedzenie, sprzęt AGD, meble, zabawki</div>
-            </div>
-        </li>
+                <div class="col">
+                    <div class="text">ubrania, jedzenie, sprzęt AGD, meble, zabawki</div>
+                </div>
+            </li>
         {% endfor %}
     </ul>
-    <!-- Pagination
-    <ul class="help--slides-pagination">
-        <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
-        <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
-        <li><a href="#" class="btn btn--small btn--without-border" data-page="3">3</a></li>
+
+    <ul class="help--slides-pagination ">
+
+        {% if institution.has_previous %}
+            <li class="btn btn--small btn--without-border"><a href="?page=1">1</a></li>
+        {% endif %}
+
+        {% if institution.has_next %}
+            <li class="btn btn--small btn--without-border"><a href='?page={{ institution.next_page_number }}'>2</a></li>
+        {% endif %}
+
+
     </ul>
-    -->
 </div>
+
+
