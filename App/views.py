@@ -1,8 +1,12 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
-from App.models import Institution, Donation
+from App.models import Institution, Donation, Category
 
 
 class LandingPage(View):
@@ -18,19 +22,18 @@ class LandingPage(View):
         institution = paginator.get_page(page)
 
         return render(request, 'index.html', {'bags_count': bags_count, 'organizations_count': organizations_count
-            , 'institutions': institutions, 'organizations': organizations, 'locals': locals, 'institution': institution})
+            , 'institutions': institutions, 'organizations': organizations, 'locals': locals,
+                                              'institution': institution})
 
 
-class AddDonation(View):
+class AddDonation(LoginRequiredMixin, View):
     def get(self, request):
+        categories = Category.objects.all()
+        category_choices = [(category.id, category.name) for category in categories]
+        return render(request, 'form.html', {'categories': categories, 'category_choices': category_choices})
+
+    def post(self, request):
         return render(request, 'form.html')
 
 
-class LoginPage(View):
-    def get(self, request):
-        return render(request, 'login.html')
 
-
-class RegisterPage(View):
-    def get(self, request):
-        return render(request, 'register.html')

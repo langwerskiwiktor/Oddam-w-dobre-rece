@@ -4,7 +4,8 @@
 {% block content %}
     <section id="login" class="login-page">
         <h2>Zaloguj się</h2>
-        <form>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
             <div class="form-group">
                 <input type="email" name="email" placeholder="Email"/>
             </div>
@@ -19,7 +20,3 @@
         </form>
     </section>
 {% endblock %}
-
-
-
-    
