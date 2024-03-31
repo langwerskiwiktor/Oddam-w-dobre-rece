@@ -7,27 +7,40 @@
     </p>
     <ul class="help--slides-items">
         <ul class="help--slides-items">
-            {% for organization in organizations %}
+            {% for institution in organizations_page %}
                 <li>
                     <div class="col">
-                        <div class="title">{{ organization.name }}</div>
-                        <div class="subtitle">Cel i misja: {{ organization.description }}</div>
+                        <div class="title">{{ institution.name }}</div>
+                        <div class="subtitle">Cel i misja: {{ institution.description }}</div>
                     </div>
 
                     <div class="col">
-                        <div class="text">książki, jedzenie, sprzęt AGD, meble, zabawki</div>
+                        {% for category in institution.category.all %}
+                            <div class="text">{{ category.name }}</div>
+                        {% endfor %}
                     </div>
                 </li>
+
             {% endfor %}
         </ul>
 
-        <!-- Pagination
-        <ul class="help--slides-pagination">
-          <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="3">3</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="4">4</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="5">5</a></li>
-        </ul>
-        -->
+        <div class="help--slides-pagination">
+                <span class="step-links">
+                    {% if organizations_page.has_previous %}
+                        <a href="?page={{ organizations_page.previous_page_number }}">&laquo; previous</a>
+                    {% endif %}
+                    {% for i in organizations_page.paginator.page_range %}
+                        {% if organizations_page.number == i %}
+                            <span class="current">
+                        {{ i }}
+                    </span>
+                        {% else %}
+                            <a href="?page={{ i }}">{{ i }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if organizations_page.has_next %}
+                        <a href="?page={{ organizations_page.next_page_number }}">next &raquo;</a>
+                    {% endif %}
+                </span>
+        </div>
 </div>

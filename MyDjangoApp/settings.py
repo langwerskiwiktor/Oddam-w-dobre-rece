@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'App.apps.AppConfig',
     "accounts.apps.AccountsConfig"
 ]
@@ -79,7 +80,7 @@ WSGI_APPLICATION = 'MyDjangoApp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'database_charity-donation',
+        'NAME': 'charity-donation-database',
         'USER': 'postgres',
         'PASSWORD': 'coderslab',
         'HOST': 'localhost',

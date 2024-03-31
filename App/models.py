@@ -5,22 +5,25 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=256)
 
+    def __str__(self):
+        return self.name
+
+
+CHOISES = [
+    (1, 'fundacja'),
+    (2, 'organizacja pozarządowa'),
+    (3, 'zbiórka lokalna')
+]
+
 
 class Institution(models.Model):
-    FUNDACJA = 'fundacja'
-    ORGANIZACJA_POZARZĄDOWA = 'organizacja_pozarzadowa'
-    ZBIÓRKA_LOKALNA = 'zbiorka_lokalna'
-
-    TYPE_CHOICES = [
-        (FUNDACJA, 'Fundacja'),
-        (ORGANIZACJA_POZARZĄDOWA, 'Organizacja pozarządowa'),
-        (ZBIÓRKA_LOKALNA, 'Zbiórka lokalna'),
-    ]
-
     name = models.CharField(max_length=256)
     description = models.TextField()
-    type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=FUNDACJA)
+    type = models.IntegerField(choices=CHOISES, default=1)
     category = models.ManyToManyField(Category)
+
+    def __str__(self):
+        return self.name
 
 
 class Donation(models.Model):
@@ -35,4 +38,4 @@ class Donation(models.Model):
     pick_up_time = models.TimeField()
     pick_up_comment = models.TextField()
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-
+    is_taken = models.BooleanField(default=False, null=True)

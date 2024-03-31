@@ -1,28 +1,42 @@
 <!-- SLIDE 3 -->
-      <div class="help--slides" data-id="3">
-        <p>Lorem ipsum dolor sit amet, his ocurreret persequeris ea, ad utinam laudem duo. Verterem adipisci partiendo eos ne, ea his reque quaeque recteque, ne quo lobortis intellegam.</p>
+<div class="help--slides" data-id="3">
+    <p>Lorem ipsum dolor sit amet, his ocurreret persequeris ea, ad utinam laudem duo. Verterem adipisci partiendo eos
+        ne, ea his reque quaeque recteque, ne quo lobortis intellegam.</p>
+    <ul class="help--slides-items">
         <ul class="help--slides-items">
-        <ul class="help--slides-items">
-            {% for local in locals %}
+            {% for institution in collections_page %}
                 <li>
                     <div class="col">
-                        <div class="title">{{ local.address }}</div>
-                        <div class="subtitle">{{ local.city }}</div>
-                        <div class="subtitle">{{ local.zip_code}}</div>
+                        <div class="title">{{ institution.name }}</div>
+                        <div class="subtitle">{{ institution.description }}</div>
                     </div>
 
                     <div class="col">
-                        <div class="text">{{ local.phone_number }}</div>
+                        {% for category in institution.categories.all %}
+                            <div class="text">{{ category.name }}</div>
+                        {% endfor %}
                     </div>
                 </li>
             {% endfor %}
         </ul>
 
-        <!-- Pagination
-        <ul class="help--slides-pagination">
-          <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
-        </ul>
-        -->
-      </div>
-    
+        <div class="help--slides-pagination">
+                <span class="step-links">
+                    {% if collections_page.has_previous %}
+                        <a href="?page={{ collections_page.previous_page_number }}">&laquo; previous</a>
+                    {% endif %}
+                    {% for i in collections_page.paginator.page_range %}
+                        {% if collections_page.number == i %}
+                            <span class="current">
+                        {{ i }}
+                    </span>
+                        {% else %}
+                            <a href="?page={{ i }}">{{ i }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if collections_page.has_next %}
+                        <a href="?page={{ collections_page.next_page_number }}">next &raquo;</a>
+                    {% endif %}
+                </span>
+        </div>
+</div>

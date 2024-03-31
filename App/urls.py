@@ -21,6 +21,8 @@ from App import views
 
 
 urlpatterns = [
-    path('landingpage/', views.LandingPage.as_view(), name='landingpage'),
+    path('', views.LandingPage.as_view(), name='landingpage'),
     path('addDonation/', views.AddDonation.as_view(), name='addDonation'),
+    path('profile/', views.Profil.as_view(), name='profile'),
+    path('user-edit/', views.UserEditView.as_view(), name='user-edit')
 ]

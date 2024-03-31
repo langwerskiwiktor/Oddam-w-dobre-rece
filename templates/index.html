@@ -16,14 +16,14 @@
     <section id="stats" class="stats">
         <div class="container container--85">
             <div class="stats--item">
-                <em>{{ bags_count }}</em>
+                <em>{{ total_bags }}</em>
                 <h3>Oddanych worków</h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
                     tempora!</p>
             </div>
 
             <div class="stats--item">
-                <em>{{ organizations_count }}</em>
+                <em>{{ supported_organizations }}</em>
                 <h3>Wspartych organizacji</h3>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate
                     quas quam.</p>
@@ -87,7 +87,33 @@
         {% include 'Slide3.html' %}
 
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '.ajax-pagination a', function (e) {
+                e.preventDefault();
+                console.log('Clicked on pagination link');  // Dodaj ten log
+                var page = $(this).attr('href').split('=')[1];
+                loadContent(page);
+            });
 
+            function loadContent(page) {
+                console.log('Loading content for page: ' + page);  // Dodaj ten log
+                $.ajax({
+                    url: '?page=' + page,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#ajax-content').html(data.html_content);
+                        $('#ajax-pagination').html(data.html_pagination);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX error:', status, error);  // Dodaj ten log
+                    }
+                });
+            }
+        });
+    </script>
 
 {% endblock %}
 
